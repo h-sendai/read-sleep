@@ -88,9 +88,10 @@ int main(int argc, char *argv[])
     int sleep_usec         = 0;
     int use_shutdown       = 0;
     int use_readn          = 0;
+    int use_recv_waitall   = 0;
 
     int c;
-    while ( (c = getopt(argc, argv, "c:dhi:o:Pp:qr:s:b:CSn")) != -1) {
+    while ( (c = getopt(argc, argv, "c:dhi:o:Pp:qr:s:b:CSnR")) != -1) {
         switch (c) {
             case 'h':
                 usage();
@@ -134,6 +135,9 @@ int main(int argc, char *argv[])
                 break;
             case 'n':
                 use_readn = 1;
+                break;
+            case 'R':
+                use_recv_waitall = 1;
                 break;
             default:
                 break;
@@ -281,12 +285,16 @@ int main(int argc, char *argv[])
         m = get_bytes_in_rcvbuf(sockfd);
         printf("%ld.%06ld %s start (%d bytes in rcvbuf)\n",
             tv.tv_sec, tv.tv_usec,
-            use_readn ? "readn()" : "read()",
+            use_readn ? "readn()" : use_recv_waitall ? "recv(MSG_WAITALL)" : "read()",
             m);
 
         if (use_readn) {
             n = readn(sockfd, buf, bufsize);
         }
+        else if (use_recv_waitall) {
+            n = recv(sockfd, buf, bufsize, MSG_WAITALL);
+        }
+
         else {
             n = read(sockfd, buf, bufsize);
         }
@@ -314,7 +322,7 @@ int main(int argc, char *argv[])
         m = get_bytes_in_rcvbuf(sockfd);
         printf("%ld.%06ld %s done (%d bytes) (%d bytes in rcvbuf)\n",
             tv.tv_sec, tv.tv_usec,
-            use_readn ? "readn()" : "read()",
+            use_readn ? "readn()" : use_recv_waitall ? "recv(MSG_WAITALL)" : "read()",
             n, m);
         if (sleep_usec > 0) {
             gettimeofday(&tv, NULL);
