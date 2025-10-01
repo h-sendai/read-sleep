@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+sudo tcpdump -nn -i exp0 -s 78 -w net.cap </dev/null >& /dev/null &
+sleep 1
+timeout 5 ../../read-sleep -b 1024k -n -s 20000 192.168.10.17:24 >& prog.log
+sleep 1
+sudo pkill tcpdump
+
+grep -v Gbps prog.log > read.log
+tcpdump -tt -nn -r net.cap > net.txt
+# use sort -s (stable sort if the time stamp is same)
+cat read.log net.txt | sort -s -n > total.log
+tcpdumpdiff total.log > total.diff
