@@ -14,3 +14,6 @@ soft-server-ws-on-sleep-20ms    48.607 MB/s   0.408 Gbps    3154794 bytes     24
 
 soft-server: software server
 ws: TCP Window scaling (on/off using /proc/sys/net/ipv4/tcp_window_scaling)
+
+SiTCPでもソフトウェアエミュレータ(Window Scaling無効)ではそんなに変わらない。
+SiTCP GbE版もWindow Scalingをサポートしていたらだいぶ楽に読めたのでは。
