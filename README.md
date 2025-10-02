@@ -23,6 +23,7 @@ tcpdumpでキャプチャしながら、プログラムを走らせて、
 プログラム終了後にプログラムのログとパケットキャプチャを
 マージする。
 
+```
 #!/bin/zsh
 
 sudo tcpdump -nn -i exp0 -s 78 -w net.cap </dev/null >& /dev/null &
