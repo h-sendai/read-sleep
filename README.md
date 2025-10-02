@@ -38,3 +38,5 @@ tcpdump -tt -nn -r net.cap > net.txt
 cat read.log net.txt | sort -s -n > total.log
 tcpdumpdiff total.log > total.diff
 ```
+
+結果の例: [log/result.txt](log/result.txt)
