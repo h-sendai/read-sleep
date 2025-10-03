@@ -62,5 +62,8 @@ SiTCP - (Gigabit Ethernet) - Source - Sink
 ようになりsitcp機器がデータを送るのを止めるから、という
 ふうになっているのではないか。
 
+sleep時間を300msにした例: [log/sitcp-300ms.txt](log/sitcp-300ms.txt)
 
+read()していない間、ACKを約40ms間隔でだしているところがある。
+read()がはじまるとすぐにACKがでているように見える。
 

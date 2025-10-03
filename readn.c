@@ -1,6 +1,8 @@
 #include <sys/time.h>
 #include <stdio.h>
+#include "my_socket.h"
 #include "readn.h"
+extern int enable_quickack;
 
 ssize_t						/* Read "n" bytes from a descriptor. */
 readn(int fd, void *vptr, size_t n)
@@ -15,6 +17,9 @@ readn(int fd, void *vptr, size_t n)
 	while (nleft > 0) {
         gettimeofday(&tv, NULL);
         printf("%ld.%06ld ---> read in readn start\n", tv.tv_sec, tv.tv_usec);
+        if (enable_quickack > 1) {
+            set_so_quickack(fd, 1);
+        }
 		if ( (nread = read(fd, ptr, nleft)) < 0) {
 			if (errno == EINTR)
 				nread = 0;		/* and call read() again */

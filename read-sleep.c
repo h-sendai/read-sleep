@@ -25,6 +25,7 @@
 
 volatile sig_atomic_t has_alarm = 0;
 volatile sig_atomic_t has_int   = 0;
+int enable_quickack             = 0; /* used in readn.c */
 
 int debug = 0;
 
@@ -82,7 +83,6 @@ int main(int argc, char *argv[])
     int cpu_num            = -1;
     int run_cpu_prev       = -1;
     int get_cpu_affinity   = 0;
-    int enable_quickack    = 0;
     char *interval_sec_str = "1.0";
     char *output           = "";
     int sleep_usec         = 0;
