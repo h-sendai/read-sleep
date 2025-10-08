@@ -31,7 +31,7 @@ int debug = 0;
 
 int usage(void)
 {
-    char msg[] = "Usage: ./read-sleep [-C] [-c cpu_num] [-d] [-P] [-p port] [-q] [-q ...] [-r rcvbuf] [-b bufsize] [-i interval] [-o output_file] [-s sleep_usec] ip_address[:port]\n"
+    char msg[] = "Usage: ./read-sleep [-C] [-c cpu_num] [-d] [-P] [-p port] [-q] [-q ...] [-r rcvbuf] [-b bufsize] [-i interval] [-o output_file] [-s sleep_usec] [-R] ip_address[:port]\n"
                  "default: port 24, read bufsize 1024kB, interval 1 second\n"
                  "suffix k for kilo, m for mega to speficy bufsize\n"
                  "If both -p port and ip_address:port are specified, ip_address:port port wins\n"
@@ -47,7 +47,8 @@ int usage(void)
                  "-b bufsize: read() buffer size (default: 1024kB)\n"
                  "-i sec: print interval (seconds. allow decimal)\n"
                  "-o file: out data to file\n"
-                 "-s sleep_usec: usleep(sleep_usec) after read\n";
+                 "-s sleep_usec: usleep(sleep_usec) after read\n"
+                 "-R: use recv(MSG_WAITALL) insted of readn()\n";
 
     fprintf(stderr, "%s\n", msg);
 
@@ -292,6 +293,9 @@ int main(int argc, char *argv[])
             n = readn(sockfd, buf, bufsize);
         }
         else if (use_recv_waitall) {
+            if (enable_quickack > 1) {
+                set_so_quickack(sockfd, 1);
+            }
             n = recv(sockfd, buf, bufsize, MSG_WAITALL);
         }
 
