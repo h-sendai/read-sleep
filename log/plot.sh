@@ -31,7 +31,7 @@ set xtics 0,0.1
 set mxtics 10
 set grid x
 set grid y
-plot [2:3] 'packet.activity.log' u 1:($17/1024) w p pt 5 ax x1y1 title 'pc recv. packet alen.', \
+plot [2:3] 'packet.activity.log' u 1:($17/1024) w p pt 5 ax x1y1 title 'pc recv. packet len.', \
 'program.activity.log' u 1:3 w step lw 3 ax x1y2 title 'program activity (1 = read, 0 = sleep)'
 
 reset
