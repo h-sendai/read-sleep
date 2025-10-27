@@ -1,9 +1,10 @@
 #!/bin/zsh
 
+sleep_usec=100000
 netstat -st | grep delay > netstat.delay.0
 sudo tcpdump -nn -i exp0 -s 78 -w net.cap </dev/null >& /dev/null &
 sleep 1
-timeout 10 ../../read-sleep -b 1024k -n -s 100000 192.168.10.17:24 >& prog.log
+timeout 10 ../../read-sleep -b 1024k -n -s $sleep_usec 192.168.10.17:24 >& prog.log
 sleep 1
 netstat -st | grep delay > netstat.delay.1
 sudo pkill tcpdump
