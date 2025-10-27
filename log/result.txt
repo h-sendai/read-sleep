@@ -5,9 +5,15 @@ Server / Sleep seconds        | rate (MB/s) | rate (Gbps) | last SO_RCVBUF | tot
 sitcp-sleep-5ms                 73.037 MB/s   0.613 Gbps    2377974 bytes     366
 sitcp-sleep-10ms                53.628 MB/s   0.450 Gbps    2645672 bytes     269
 sitcp-sleep-20ms                34.866 MB/s   0.292 Gbps    3265713 bytes     175
+
+sitcp-sleep-5ms  (route qa)    113.047 MB/s   0.949 Gbps   16777216 bytes     566
+sitcp-sleep-10ms (route qa)     97.525 MB/s   0.818 Gbps   16777216 bytes     488
+sitcp-sleep-20ms (route qa)     49.297 MB/s   0.413 Gbps   16777216 bytes     247
+
 soft-server-ws-off-sleep-5ms    74.543 MB/s   0.625 Gbps    1689809 bytes     373
 soft-server-ws-off-sleep-10ms   56.128 MB/s   0.471 Gbps    2230321 bytes     281
 soft-server-ws-off-sleep-20ms   35.816 MB/s   0.300 Gbps    4037210 bytes     179
+
 soft-server-ws-on-sleep-5ms    111.580 MB/s   0.936 Gbps    5569958 bytes     558
 soft-server-ws-on-sleep-10ms    96.403 MB/s   0.809 Gbps    3165595 bytes     482
 soft-server-ws-on-sleep-20ms    48.607 MB/s   0.408 Gbps    3154794 bytes     243
