@@ -281,13 +281,16 @@ int main(int argc, char *argv[])
 
         int m;
         int n;
+        int s;
         struct timeval tv;
         gettimeofday(&tv, NULL);
         m = get_bytes_in_rcvbuf(sockfd);
-        printf("%ld.%06ld %s start (%d bytes in rcvbuf)\n",
+        s = get_so_rcvbuf(sockfd);
+
+        printf("%ld.%06ld %s start (%d bytes in rcvbuf) (current so_rcvbuf: %d bytes)\n",
             tv.tv_sec, tv.tv_usec,
             use_readn ? "readn()" : use_recv_waitall ? "recv(MSG_WAITALL)" : "read()",
-            m);
+            m, s);
 
         if (use_readn) {
             n = readn(sockfd, buf, bufsize);
@@ -324,10 +327,11 @@ int main(int argc, char *argv[])
 
         gettimeofday(&tv, NULL);
         m = get_bytes_in_rcvbuf(sockfd);
-        printf("%ld.%06ld %s done (%d bytes) (%d bytes in rcvbuf)\n",
+        s = get_so_rcvbuf(sockfd);
+        printf("%ld.%06ld %s done (%d bytes) (%d bytes in rcvbuf) (current so_rcvbuf: %d bytes)\n",
             tv.tv_sec, tv.tv_usec,
             use_readn ? "readn()" : use_recv_waitall ? "recv(MSG_WAITALL)" : "read()",
-            n, m);
+            n, m, s);
         if (sleep_usec > 0) {
             gettimeofday(&tv, NULL);
             printf("%ld.%06ld now sleeping %d usec\n", tv.tv_sec, tv.tv_usec, sleep_usec);
